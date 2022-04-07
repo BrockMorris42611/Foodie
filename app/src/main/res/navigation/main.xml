@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/loginFrag">
+
+    <fragment
+        android:id="@+id/loginFrag"
+        android:name="temple.edu.foodie.LoginFrag"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFrag_to_registerFrag"
+            app:destination="@id/registerFrag" />
+        <action
+            android:id="@+id/action_loginFrag_to_menuFrag"
+            app:destination="@id/menuFrag"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFrag"
+        android:name="temple.edu.foodie.RegisterFrag"
+        android:label="RegisterFrag"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFrag_to_menuFrag"
+            app:destination="@id/menuFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuFrag"
+        android:name="temple.edu.foodie.MenuFrag"
+        android:label="MenuFrag"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_menuFrag_to_listFrag"
+            app:destination="@id/listFrag"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFrag"
+        android:name="temple.edu.foodie.ListFrag"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/searchFrag"
+        android:name="temple.edu.foodie.SearchFrag"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+</navigation>
