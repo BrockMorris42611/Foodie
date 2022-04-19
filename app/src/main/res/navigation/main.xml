@@ -14,10 +14,11 @@
             android:id="@+id/action_loginFrag_to_registerFrag"
             app:destination="@id/registerFrag" />
         <action
-            android:id="@+id/action_loginFrag_to_menuFrag"
-            app:destination="@id/menuFrag"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            />
+            android:id="@+id/action_loginFrag_to_mapsFragment"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_loginFrag_to_listFrag"
+            app:destination="@id/listFrag" />
     </fragment>
     <fragment
         android:id="@+id/registerFrag"
@@ -25,31 +26,41 @@
         android:label="RegisterFrag"
         tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_registerFrag_to_menuFrag"
-            app:destination="@id/menuFrag" />
+            android:id="@+id/action_registerFrag_to_mapsFragment"
+            app:destination="@id/mapsFrag" />
     </fragment>
 
-    <fragment
-        android:id="@+id/menuFrag"
-        android:name="temple.edu.foodie.MenuFrag"
-        android:label="MenuFrag"
-        tools:layout="@layout/fragment_menu">
-        <action
-            android:id="@+id/action_menuFrag_to_searchFrag"
-            app:destination="@id/searchFrag" />
-        <action
-            android:id="@+id/action_menuFrag_to_listFrag"
-            app:destination="@id/listFrag"
-            app:launchSingleTop="false" />
-    </fragment>
     <fragment
         android:id="@+id/listFrag"
         android:name="temple.edu.foodie.ListFrag"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFrag_to_mapsFragment"
+            app:destination="@id/mapsFrag" />
+        <action
+            android:id="@+id/action_listFrag_to_searchFrag"
+            app:destination="@id/searchFrag" />
+    </fragment>
     <fragment
         android:id="@+id/searchFrag"
         android:name="temple.edu.foodie.SearchFrag"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFrag_to_mapsFragment"
+            app:destination="@id/mapsFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFrag"
+        android:name="temple.edu.foodie.MapsFrag"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_listFrag"
+            app:destination="@id/listFrag" />
+        <action
+            android:id="@+id/action_mapsFragment_to_searchFrag"
+            app:destination="@id/searchFrag" />
+    </fragment>
 </navigation>

@@ -14,22 +14,19 @@ class LoginFrag : Fragment() {
 
     lateinit var layout : View
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         layout = inflater.inflate(R.layout.fragment_login, container, false)
         val login : Button = layout.findViewById(R.id.loginButton)
-        val creatAcc : TextView = layout.findViewById(R.id.createAccTV)
+        val createAcc : TextView = layout.findViewById(R.id.createAccTV)
         login.setOnClickListener {
-            Navigation.findNavController(layout).navigate(R.id.action_loginFrag_to_menuFrag)
+            Navigation.findNavController(layout).navigate(R.id.action_loginFrag_to_listFrag)
         }
-        creatAcc.setOnClickListener {
+        createAcc.setOnClickListener {
             Navigation.findNavController(layout).navigate(R.id.action_loginFrag_to_registerFrag)
         }
         return layout
     }
-
 }
