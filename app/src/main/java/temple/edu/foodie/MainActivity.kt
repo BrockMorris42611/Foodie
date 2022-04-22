@@ -12,6 +12,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.json.JSONException
 import org.json.JSONObject
@@ -79,10 +80,12 @@ class MainActivity : AppCompatActivity() {
 
         val newObj = JSONObject()
         newObj.put("x", 11)
-        
 
         println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$newObj")
+
+        val llString = "45,56"
+        val llHolder = llString.split(",")
+        var finalForm = LatLng(llHolder[0].toDouble(), llHolder[1].toDouble())
+
     }
 }
-
-class test (x : Int)

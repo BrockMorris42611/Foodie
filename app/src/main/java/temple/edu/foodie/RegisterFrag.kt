@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -50,31 +51,26 @@ class RegisterFrag : Fragment() {
             else if (!password.text.toString().equals(password2.text.toString(), false))
                 Toast.makeText(this.requireContext(), "Please make sure the two passwords match", Toast.LENGTH_LONG).show()
             else{
-                val toReg = JSONObject()
-                toReg.put("email"   , email.text.toString())
-                toReg.put("username", username.text.toString())
-                toReg.put("password", password.text.toString())
-
+                val args = "email="    + email.text.toString()    + "&" + //I KNOW THIS IS UGLY BUT
+                           "username=" + username.text.toString() + "&" + //I COULDNT USE JSON FOR SOME REASON! IT WASNT WORKING
+                           "password=" + password.text.toString()         //WITH GSON???????
+                println(args)
+                findNavController().navigate(R.id.mapsFrag)
                 val requestQueue = Volley.newRequestQueue(this.requireContext())
                 val obj = JSONObject()
-                val url =
-                    "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/" + "insertUser.jsp" + "?jsonData=" + toReg
+                val url = "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/registerUser.jsp?$args"
                 val jsonObjectRequest = JsonObjectRequest(
-                    Request.Method.GET,
-                    url,
-                    obj,
+                    Request.Method.GET, url, obj,
                     object : Response.Listener<JSONObject> {
                         override fun onResponse(response: JSONObject?) {
                             try {
-                                Log.d(">>>>>>>>>>>>>>>>>>>>", response.toString())
+                                Log.d("SUCCESSFUL RESPONSE", response.toString())
                                 Log.d("********************", obj.toString()/*response.toString()*/)
-                            } catch (e: JSONException) {
-                                System.out.println(">>>>>>>>>>>>>>>>>>>>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                            }
+                            } catch (e: JSONException) { System.out.println("FROM CATCH IN RESPONSE.LISTENER>> " + response.toString()) }
                         }
                     },
                     Response.ErrorListener {
-                        println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$it")
+                        println("FROM REPSONS.ERRORLISTENER>> $it")
                     })
                 requestQueue.add(jsonObjectRequest)
             }
