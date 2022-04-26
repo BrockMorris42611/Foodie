@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,8 +15,14 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
 import org.json.JSONException
 import org.json.JSONObject
+import java.lang.Character.getType
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,38 +61,28 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.mapsFrag)
         }
 
-        val url =
-            "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/getRestaurantId.jsp?restaurantId=20"
         val requestQueue = Volley.newRequestQueue(this)
-        val obj = JSONObject()
-
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET,
-            url,
-            obj,
+        val myurl = "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/listUsers.jsp"
+        val listRequest = JsonObjectRequest(
+            Request.Method.GET, myurl, null,
             object : Response.Listener<JSONObject> {
                 override fun onResponse(response: JSONObject?) {
                     try {
-                        Log.d(">>>>>>>>>>>>>>>>>>>>", response.toString())
-                        Log.d("********************", obj.toString()/*response.toString()*/)
+                        if (response != null) {
+                            Log.d(">>>>>>>>>>>>>>>>>>>>", response.get("userList").toString())
+                            val arr = JsonParser().parse(response.get("userList").toString()).asJsonArray
+                            val arrType = object : TypeToken<ArrayList<User>>(){}.type
+                            val yes = Gson().fromJson<ArrayList<User>>(arr,arrType)
+                            println("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} " + yes[1].userId)
+                        }
                     } catch (e: JSONException) {
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                        println(">>>>>>>>>>>>>>>>>>>>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     }
                 }
             },
             Response.ErrorListener {
                 println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$it")
             })
-        requestQueue.add(jsonObjectRequest)
-
-        val newObj = JSONObject()
-        newObj.put("x", 11)
-
-        println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$newObj")
-
-        val llString = "45,56"
-        val llHolder = llString.split(",")
-        var finalForm = LatLng(llHolder[0].toDouble(), llHolder[1].toDouble())
-
+        requestQueue.add(listRequest)
     }
 }

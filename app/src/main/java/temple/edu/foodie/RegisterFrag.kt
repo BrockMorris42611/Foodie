@@ -32,8 +32,8 @@ class RegisterFrag : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_register, container, false)
 
         email = layout.findViewById(R.id.emailTV)
-        username = layout.findViewById(R.id.usernameTV)
-        password = layout.findViewById(R.id.passwordTV)
+        username = layout.findViewById(R.id.login_usernameTV)
+        password = layout.findViewById(R.id.login_passwordTV)
         password2 = layout.findViewById(R.id.password2TV)
         registerButton = layout.findViewById(R.id.registerButton)
 

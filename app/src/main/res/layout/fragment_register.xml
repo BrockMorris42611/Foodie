@@ -20,10 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
+        app:layout_constraintTop_toBottomOf="@+id/login_passwordTV" />
 
     <EditText
-        android:id="@+id/passwordTV"
+        android:id="@+id/login_passwordTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -33,10 +33,10 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
+        app:layout_constraintTop_toBottomOf="@+id/login_usernameTV" />
 
     <EditText
-        android:id="@+id/usernameTV"
+        android:id="@+id/login_usernameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
@@ -57,7 +57,7 @@
         android:hint="Email"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/usernameTV"
+        app:layout_constraintBottom_toTopOf="@+id/login_usernameTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:text="Please Register an Account or Log In"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/usernameTV"
+        app:layout_constraintBottom_toTopOf="@+id/login_usernameTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

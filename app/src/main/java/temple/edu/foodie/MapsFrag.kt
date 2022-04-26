@@ -1,5 +1,6 @@
 package temple.edu.foodie
 
+import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -12,9 +13,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFrag : Fragment() {
+
+    lateinit var map: GoogleMap
+    lateinit var foodieViewModel: FoodieViewModel
+    var myMarker: Marker? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -31,11 +37,7 @@ class MapsFrag : Fragment() {
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -43,5 +45,14 @@ class MapsFrag : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
+//        foodieViewModel.getObservableRestaurants().observe(requireActivity()){
+//            //val rList = foodieViewModel.get
+//            for(i in 0 until it.size){
+//                map.addMarker(MarkerOptions().position(it.getRestaurant(i).latLong))
+//                it.getRestaurant(i).latLong
+//            }
+//        }
+
     }
 }
