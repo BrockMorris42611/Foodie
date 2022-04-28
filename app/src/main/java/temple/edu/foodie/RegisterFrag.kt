@@ -64,9 +64,7 @@ class RegisterFrag : Fragment() {
                     object : Response.Listener<JSONObject> {
                         override fun onResponse(response: JSONObject?) {
                             try {
-                                if(!response.toString().contains("already taken")){ //if this is a clean insert!
-                                    Navigation.findNavController(layout).navigate(R.id.loginFrag)
-                                }else{ // if we get some sort of error back
+                                if(response.toString().contains("already taken")){ //if this is a clean insert! // if we get some sort of error back
                                     var errorMsg = ""
                                     if(!response.toString().contains("email is already taken")){
                                         errorMsg = "That email is already taken"
