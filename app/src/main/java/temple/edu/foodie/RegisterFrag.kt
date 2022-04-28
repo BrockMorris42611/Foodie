@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.android.volley.Request
 import com.android.volley.Response
@@ -59,14 +60,24 @@ class RegisterFrag : Fragment() {
                 val requestQueue = Volley.newRequestQueue(this.requireContext())
                 val obj = JSONObject()
                 val url = "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/registerUser.jsp?$args"
-                val jsonObjectRequest = JsonObjectRequest(
-                    Request.Method.GET, url, obj,
+                val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, obj,
                     object : Response.Listener<JSONObject> {
                         override fun onResponse(response: JSONObject?) {
                             try {
-                                Log.d("SUCCESSFUL RESPONSE", response.toString())
-                                Log.d("********************", obj.toString()/*response.toString()*/)
-                            } catch (e: JSONException) { System.out.println("FROM CATCH IN RESPONSE.LISTENER>> " + response.toString()) }
+                                if(!response.toString().contains("already taken")){ //if this is a clean insert!
+                                    Navigation.findNavController(layout).navigate(R.id.loginFrag)
+                                }else{ // if we get some sort of error back
+                                    var errorMsg = ""
+                                    if(!response.toString().contains("email is already taken")){
+                                        errorMsg = "That email is already taken"
+                                    }else if(!response.toString().contains("username is already taken")){
+                                        errorMsg = "That username is already taken"
+                                    }
+                                    Toast.makeText(requireContext(),
+                                        errorMsg,Toast.LENGTH_LONG).show()
+                                }
+                                Log.d("SUCCESSFUL RESPONSE IN REGISTER", response.toString())
+                            } catch (e: JSONException) {println("FROM CATCH IN RESPONSE.LISTENER>> " + response.toString()) }
                         }
                     },
                     Response.ErrorListener {

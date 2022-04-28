@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_loginFrag_to_mapsFragment"
             app:destination="@id/mapsFrag" />
-        <action
-            android:id="@+id/action_loginFrag_to_listFrag"
-            app:destination="@id/listFrag" />
     </fragment>
     <fragment
         android:id="@+id/registerFrag"
@@ -34,23 +31,12 @@
         android:id="@+id/listFrag"
         android:name="temple.edu.foodie.ListFrag"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFrag_to_mapsFragment"
-            app:destination="@id/mapsFrag" />
-        <action
-            android:id="@+id/action_listFrag_to_searchFrag"
-            app:destination="@id/searchFrag" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
     <fragment
         android:id="@+id/searchFrag"
         android:name="temple.edu.foodie.SearchFrag"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFrag_to_mapsFragment"
-            app:destination="@id/mapsFrag" />
-    </fragment>
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/mapsFrag"
         android:name="temple.edu.foodie.MapsFrag"
@@ -62,5 +48,13 @@
         <action
             android:id="@+id/action_mapsFragment_to_searchFrag"
             app:destination="@id/searchFrag" />
+        <action
+            android:id="@+id/action_mapsFrag_to_reviewFrag"
+            app:destination="@id/reviewFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/reviewFrag"
+        android:name="temple.edu.foodie.ReviewFrag"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" />
 </navigation>

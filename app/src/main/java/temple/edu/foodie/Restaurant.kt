@@ -2,7 +2,7 @@ package temple.edu.foodie
 
 import com.google.android.gms.maps.model.LatLng
 
-class Restaurant(var RestaurantId : Int, var latLong : LatLng, var address : String, var details : String, var restaurant_name : String)
+data class Restaurant(var RestaurantId : Int, var latLong : LatLng, var address : String, var details : String, var restaurant_name : String, var tags : String)
 
 class RestaurantList {
     var restaurants = ArrayList<Restaurant>()

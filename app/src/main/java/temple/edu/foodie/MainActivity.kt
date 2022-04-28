@@ -1,5 +1,7 @@
 package temple.edu.foodie
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,10 +26,17 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Character.getType
 
+@Suppress("RedundantSamConstructor")
 class MainActivity : AppCompatActivity() {
+
+    val foodieViewModel : FoodieViewModel by lazy{
+        ViewModelProvider(this).get(FoodieViewModel::class.java)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        foodieViewModel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationViewMenu)
@@ -39,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.loginFrag, R.id.registerFrag, R.id.searchFrag, R.id.listFrag)
+            setOf(R.id.loginFrag, R.id.registerFrag, R.id.searchFrag, R.id.reviewFrag)
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -54,35 +63,23 @@ class MainActivity : AppCompatActivity() {
         navView.findViewById<View>(R.id.action_search).setOnClickListener {
             navController.navigate(R.id.searchFrag)
         }
-        navView.findViewById<View>(R.id.action_list).setOnClickListener {
-            navController.navigate(R.id.listFrag)
+        navView.findViewById<View>(R.id.action_review).setOnClickListener {
+            navController.navigate(R.id.reviewFrag)
         }
         navView.findViewById<View>(R.id.action_map).setOnClickListener {
             navController.navigate(R.id.mapsFrag)
         }
 
-        val requestQueue = Volley.newRequestQueue(this)
-        val myurl = "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/listUsers.jsp"
-        val listRequest = JsonObjectRequest(
-            Request.Method.GET, myurl, null,
-            object : Response.Listener<JSONObject> {
-                override fun onResponse(response: JSONObject?) {
-                    try {
-                        if (response != null) {
-                            Log.d(">>>>>>>>>>>>>>>>>>>>", response.get("userList").toString())
-                            val arr = JsonParser().parse(response.get("userList").toString()).asJsonArray
-                            val arrType = object : TypeToken<ArrayList<User>>(){}.type
-                            val yes = Gson().fromJson<ArrayList<User>>(arr,arrType)
-                            println("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} " + yes[1].userId)
-                        }
-                    } catch (e: JSONException) {
-                        println(">>>>>>>>>>>>>>>>>>>>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                    }
-                }
-            },
-            Response.ErrorListener {
-                println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$it")
-            })
-        requestQueue.add(listRequest)
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)   != PackageManager.PERMISSION_GRANTED &&
+            checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ), 1
+            )
+        }
+
     }
 }

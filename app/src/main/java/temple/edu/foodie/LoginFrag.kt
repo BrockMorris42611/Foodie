@@ -14,6 +14,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.JsonParser
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -25,9 +26,7 @@ class LoginFrag : Fragment() {
     lateinit var createAcc : TextView
     lateinit var usernameBox : TextView
     lateinit var passwordBox : TextView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         layout = inflater.inflate(R.layout.fragment_login, container, false)
         usernameBox = layout.findViewById(R.id.login_usernameTV)
@@ -47,23 +46,24 @@ class LoginFrag : Fragment() {
                     object : Response.Listener<JSONObject> {
                         override fun onResponse(response: JSONObject?) {
                             try {
-                                Log.d(">>>>", response.toString())
-                                if (!response.toString().contains("User Not Found"))
+                                Log.d("Success Login Frag>>>>", response.toString())
+                                if (!response.toString().contains("User Not Found")) {
+                                    User.Api.setLocalUser(requireContext(),
+                                        JsonParser().parse(response.toString()).asJsonObject
+                                            .get("userId").asInt
+                                    )
                                     Navigation.findNavController(layout)
                                         .navigate(R.id.action_loginFrag_to_mapsFragment)
-                                else
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "User Does Not Exist. Try Again.",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                }
+                                else Toast.makeText(requireContext(),
+                                    "User Does Not Exist. Try Again.",Toast.LENGTH_LONG).show()
                             } catch (e: JSONException) {
-                                println(">>>>>>>>>>>>XXXXXXXXXXXX")
+                                println(">>>>>>>>>>>>e JSON EXCEPTION LOGIN FRAG")
                             }
                         }
                     },
                     Response.ErrorListener {
-                        println(">>>>>>>>>>>>>>>>>>>>DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD$it")
+                        println(">>>>>>ERROR LISTENER LOGIN FRAG: $it")
                     })
                 requestQueue.add(jsonObjectRequest)
             }
