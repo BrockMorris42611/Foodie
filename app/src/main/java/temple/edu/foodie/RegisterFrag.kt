@@ -56,7 +56,7 @@ class RegisterFrag : Fragment() {
                            "username=" + username.text.toString() + "&" + //I COULDNT USE JSON FOR SOME REASON! IT WASNT WORKING
                            "password=" + password.text.toString()         //WITH GSON???????
                 println(args)
-                findNavController().navigate(R.id.mapsFrag)
+                //findNavController().navigate(R.id.mapsFrag)
                 val requestQueue = Volley.newRequestQueue(this.requireContext())
                 val obj = JSONObject()
                 val url = "http://cis-linux2.temple.edu:8080/SP22_4515_tuj42611/registerUser.jsp?$args"
@@ -73,6 +73,8 @@ class RegisterFrag : Fragment() {
                                     }
                                     Toast.makeText(requireContext(),
                                         errorMsg,Toast.LENGTH_LONG).show()
+                                }else{
+                                    findNavController().navigate(R.id.loginFrag)
                                 }
                                 Log.d("SUCCESSFUL RESPONSE IN REGISTER", response.toString())
                             } catch (e: JSONException) {println("FROM CATCH IN RESPONSE.LISTENER>> " + response.toString()) }

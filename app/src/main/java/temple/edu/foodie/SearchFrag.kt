@@ -76,7 +76,7 @@ class SearchFrag : Fragment() {
                                     newReviewList.reviews.add(newReview)
                                 }
                                 foodieViewModel.setReviews(newReviewList)
-                                Log.d("FOOOOOOOOOOOOOOOOOOOOODIE >> ", foodieViewModel.getReviewList().getReview(0).datePosted)
+                                //Log.d("FOOOOOOOOOOOOOOOOOOOOODIE >> ", foodieViewModel.getReviewList().getReview(0).datePosted)
                             }
                         } catch (e: JSONException) {
                             println(">>>>>>>>>>>>>>>>>>>>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
